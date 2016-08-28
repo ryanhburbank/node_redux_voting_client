@@ -71,4 +71,70 @@ describe('reducer', () => {
     }));
   });
 
+  it('removes hasVoted on SET_STATE if pair changes', () => {
+    const initialState = fromJS({
+      vote: {
+        pair: ['Chinatown', 'Snatch'],
+        tally: {Chinatown: 1}
+      },
+      hasVoted: 'Chinatown'
+    });
+
+    const action = {
+      type: 'SET_STATE',
+      state: {
+        vote: {
+          pair: ['Memento', 'Inception']
+        }
+      }
+    };
+
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      vote: {
+        pair: ['Memento', 'Inception']
+      }
+    }));
+  });
+
+  it('handles VOTE by setting hasVoted', () => {
+    const state = fromJS({
+      vote: {
+        pair: ['Chinatown', 'Snatch'],
+        tally: {Chinatown: 1}
+      }
+    });
+
+    const action = {type: 'VOTE', entry: 'Chinatown'};
+    const nextState = reducer(state, action);
+
+    expect(nextState).to.equal(fromJS({
+      vote: {
+        pair: ['Chinatown', 'Snatch'],
+        tally: {Chinatown: 1}
+      },
+      hasVoted: 'Chinatown'
+    }));
+  });
+
+  it('does not set hasVoted for VOTE on invalid entry', () => {
+    const state = fromJS({
+      vote : {
+        pair: ['Chinatown', 'Snatch'],
+        tally: {Chinatown: 1}
+      }
+    });
+
+    const action = {type: 'VOTE', entry: 'Goodfellas'};
+    const nextState = reducer(state, action);
+
+    expect(nextState).to.equal(fromJS({
+      vote: {
+        pair: ['Chinatown', 'Snatch'],
+        tally: {Chinatown: 1}
+      }
+    }));
+  });
+
 });
