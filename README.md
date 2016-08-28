@@ -1,4 +1,6 @@
 ###Voting Client
+Written using React & Redux
+([the voting server](https://github.com/ryanhburbank/node_redux_voting_server) must be running for app to run properly)
 
 ####Setup
 1. Clone repoo
