@@ -1,5 +1,5 @@
 ###Voting Client
-Written using React & Redux
+Written using React, Redux, and Socket.io
 ([the voting server](https://github.com/ryanhburbank/node_redux_voting_server) must be running for app to run properly)
 
 ####Setup
